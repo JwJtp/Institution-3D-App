@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+
+# Build output (Vercel builds these itself)
+dist/
+dist-single/
+INSTITUTION-single.html
+
+# Secrets — never commit API keys (e.g. ANTHROPIC_API_KEY for server/ai-teacher-example.mjs)
+.env
+.env.*
+!.env.example
+
+# Vercel
+.vercel/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Local testing / screenshots
+*.png
+!public/**/*.png
+coverage/
+.cache/
+.vite/
+*.tsbuildinfo
+
+# Archives
+*.zip

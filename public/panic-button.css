@@ -1,0 +1,521 @@
+
+/* ==========================================
+   GIRLS' SAFETY SOS — INSTITUTION WEBSITE
+========================================== */
+
+:root {
+  --sos-red: #e11d3f;
+  --sos-red-dark: #b50f2c;
+  --sos-navy: #14213d;
+  --sos-blue: #2456a6;
+  --sos-bg: #f7f9fd;
+  --sos-border: #e1e7f0;
+  --sos-text: #182236;
+  --sos-muted: #68758a;
+}
+
+/* Floating SOS ring */
+
+#sos-launcher {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 99998;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 82px;
+  height: 82px;
+  padding: 8px;
+
+  border: 4px solid #fff;
+  border-radius: 50%;
+
+  background: linear-gradient(145deg, #ff5269, #d20d32);
+  color: #fff;
+
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.3;
+  text-align: center;
+
+  cursor: pointer;
+  box-shadow:
+    0 0 0 5px rgba(225, 29, 63, 0.15),
+    0 8px 28px rgba(181, 15, 44, 0.35);
+
+  animation: sos-ring-pulse 1.8s infinite;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#sos-launcher:hover {
+  transform: scale(1.07);
+  box-shadow:
+    0 0 0 8px rgba(225, 29, 63, 0.12),
+    0 12px 34px rgba(181, 15, 44, 0.4);
+}
+
+#sos-launcher:active {
+  transform: scale(0.95);
+}
+
+#sos-launcher:focus-visible,
+#sos-overlay button:focus-visible,
+#sos-overlay a:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 4px;
+}
+
+@keyframes sos-ring-pulse {
+  0% {
+    box-shadow:
+      0 0 0 0 rgba(225, 29, 63, 0.38),
+      0 8px 28px rgba(181, 15, 44, 0.3);
+  }
+
+  70% {
+    box-shadow:
+      0 0 0 17px rgba(225, 29, 63, 0),
+      0 8px 28px rgba(181, 15, 44, 0.3);
+  }
+
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(225, 29, 63, 0),
+      0 8px 28px rgba(181, 15, 44, 0.3);
+  }
+}
+
+/* Overlay */
+
+#sos-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+  padding: 20px;
+
+  background: rgba(9, 18, 37, 0.76);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s ease;
+}
+
+#sos-overlay.sos-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Main panel */
+
+#sos-panel {
+  position: relative;
+
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 470px;
+  max-height: 88vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  padding: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 24px;
+
+  background: #fff;
+  color: var(--sos-text);
+
+  box-shadow: 0 25px 90px rgba(0, 0, 0, 0.3);
+
+  transform: translateY(18px) scale(0.97);
+  transition: transform 0.25s ease;
+}
+
+#sos-overlay.sos-open #sos-panel {
+  transform: translateY(0) scale(1);
+}
+
+/* Close button */
+
+#sos-close {
+  float: right;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 38px;
+  margin: 0 0 8px 12px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #f0f3f8;
+  color: var(--sos-text);
+
+  font-size: 25px;
+  line-height: 1;
+
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#sos-close:hover {
+  background: #e2e8f2;
+}
+
+/* Headings and text */
+
+#sos-heading {
+  margin: 0 45px 10px 0;
+
+  color: var(--sos-navy);
+  font-family: Arial, sans-serif;
+  font-size: 27px;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.7px;
+}
+
+#sos-panel p {
+  color: var(--sos-muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+#sos-panel h3 {
+  margin: 20px 0 10px;
+  color: var(--sos-navy);
+  font-size: 19px;
+}
+
+/* Important notice */
+
+.sos-demo-notice {
+  clear: both;
+  margin: 18px 0;
+  padding: 13px 15px;
+
+  border: 1px solid #fecdd3;
+  border-left: 4px solid var(--sos-red);
+  border-radius: 10px;
+
+  background: #fff1f3;
+  color: #8f1830;
+
+  font-size: 12px;
+  line-height: 1.6;
+  font-weight: 600;
+}
+
+/* SOS action buttons */
+
+.sos-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.sos-action {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 15px 16px;
+
+  border: 1px solid var(--sos-border);
+  border-radius: 13px;
+
+  background: #f8faff;
+  color: var(--sos-text);
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.5;
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.sos-action:hover {
+  background: #eef4ff;
+  border-color: #b9cbea;
+  box-shadow: 0 4px 13px rgba(20, 33, 61, 0.07);
+  transform: translateY(-1px);
+}
+
+.sos-action:active {
+  transform: scale(0.99);
+}
+
+/* Highlight emergency contact actions */
+
+.sos-action[data-sos="call"] {
+  border-color: #f2bdc8;
+  background: #fff1f3;
+  color: #a50f2b;
+}
+
+.sos-action[data-sos="call"]:hover {
+  background: #ffe4e9;
+}
+
+.sos-action[data-sos="sms"] {
+  border-color: #cbdaf6;
+  background: #f0f5ff;
+}
+
+.sos-action[data-sos="whatsapp"] {
+  border-color: #b8e5c5;
+  background: #effbf2;
+}
+
+.sos-action small {
+  display: block;
+  margin-top: 4px;
+
+  color: var(--sos-muted);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Dynamic content */
+
+#sos-extra {
+  margin-top: 18px;
+}
+
+#sos-extra:empty {
+  display: none;
+}
+
+#sos-extra > p {
+  overflow-wrap: anywhere;
+}
+
+/* Forms and input fields */
+
+#sos-extra form {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+#sos-extra label {
+  display: block;
+  margin-top: 5px;
+
+  color: var(--sos-text);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+#sos-extra input,
+#sos-extra textarea,
+#sos-extra select {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 12px 13px;
+
+  border: 1px solid #d6deea;
+  border-radius: 10px;
+
+  background: #fff;
+  color: var(--sos-text);
+
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+#sos-extra textarea {
+  min-height: 95px;
+  resize: vertical;
+}
+
+#sos-extra input:focus,
+#sos-extra textarea:focus,
+#sos-extra select:focus {
+  outline: 2px solid rgba(37, 86, 166, 0.25);
+  border-color: var(--sos-blue);
+}
+
+.sos-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.sos-form-actions button {
+  flex: 1;
+  min-width: 120px;
+  padding: 12px 15px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: var(--sos-navy);
+  color: #fff;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.sos-form-actions button:hover {
+  background: #263b63;
+}
+
+.sos-form-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Status message */
+
+#sos-message {
+  margin-top: 18px;
+  padding: 12px 14px;
+
+  border: 1px solid #e0e7f1;
+  border-radius: 10px;
+
+  background: #f4f7fb;
+  color: #44516a;
+
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+/* Video and audio */
+
+#sos-extra video {
+  display: block;
+  width: 100%;
+  max-height: 320px;
+  margin-top: 12px;
+
+  border-radius: 12px;
+  background: #000;
+}
+
+#sos-extra audio {
+  display: block;
+  width: 100%;
+  margin: 12px 0;
+}
+
+#sos-extra a {
+  display: inline-block;
+  margin: 10px 0;
+
+  color: #2456a6;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+/* Responsive: tablets */
+
+@media (max-width: 768px) {
+  #sos-launcher {
+    right: 20px;
+    bottom: 20px;
+    width: 74px;
+    height: 74px;
+    font-size: 11px;
+  }
+
+  #sos-panel {
+    max-width: 440px;
+    padding: 24px;
+  }
+}
+
+/* Responsive: phones */
+
+@media (max-width: 480px) {
+  #sos-launcher {
+    right: 16px;
+    bottom: 18px;
+
+    width: 66px;
+    height: 66px;
+    padding: 6px;
+
+    font-size: 10px;
+  }
+
+  #sos-overlay {
+    padding: 12px;
+  }
+
+  #sos-panel {
+    max-height: 92vh;
+    padding: 20px 17px;
+    border-radius: 19px;
+  }
+
+  #sos-heading {
+    font-size: 23px;
+  }
+
+  .sos-action {
+    padding: 13px;
+    font-size: 13px;
+  }
+
+  .sos-action small {
+    font-size: 11px;
+  }
+
+  .sos-demo-notice {
+    padding: 11px;
+  }
+}
+
+/* Respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+  #sos-launcher {
+    animation: none;
+  }
+
+  #sos-overlay,
+  #sos-panel,
+  #sos-launcher,
+  .sos-action {
+    transition: none;
+  }
+}
